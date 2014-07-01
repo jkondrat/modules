@@ -1,0 +1,288 @@
+{
+    "displayName": "vxml.task.name",
+    "moduleName": "${project.artifactId}",
+    "moduleVersion": "${parsedVersion.osgiVersion}",
+    "triggerTaskEvents" : [
+                              {
+                                "displayName" : "vxml.task.trigger.outbound_retrying.name",
+                                "subject" : "outbound_vxml_retrying",
+                                "eventParameters" : [
+                                  {
+                                    "eventKey" : "config",
+                                    "displayName" : "vxml.task.trigger.config"
+                                  },
+                                  {
+                                    "eventKey" : "recipients",
+                                    "displayName" : "vxml.task.trigger.recipients"
+                                  },
+                                  {
+                                    "eventKey" : "message",
+                                    "displayName" : "vxml.task.trigger.message"
+                                  },
+                                  {
+                                    "eventKey" : "motech_id",
+                                    "displayName" : "vxml.task.trigger.motech_id"
+                                  },
+                                  {
+                                    "eventKey" : "timestamp",
+                                    "type" : "DATE",
+                                    "displayName" : "vxml.task.trigger.timestamp"
+                                  }
+                                ]
+                              },
+                              {
+                                "displayName" : "vxml.task.trigger.outbound_aborted.name",
+                                "subject" : "outbound_vxml_aborted",
+                                "eventParameters" : [
+                                  {
+                                    "eventKey" : "config",
+                                    "displayName" : "vxml.task.trigger.config"
+                                  },
+                                  {
+                                    "eventKey" : "recipients",
+                                    "displayName" : "vxml.task.trigger.recipients"
+                                  },
+                                  {
+                                    "eventKey" : "message",
+                                    "displayName" : "vxml.task.trigger.message"
+                                  },
+                                  {
+                                    "eventKey" : "motech_id",
+                                    "displayName" : "vxml.task.trigger.motech_id"
+                                  },
+                                  {
+                                    "eventKey" : "provider_id",
+                                    "displayName" : "vxml.task.trigger.provider_id"
+                                  },
+                                  {
+                                    "eventKey" : "timestamp",
+                                    "type" : "DATE",
+                                    "displayName" : "vxml.task.trigger.timestamp"
+                                  }
+                                ]
+                              },
+                              {
+                                "displayName" : "vxml.task.trigger.outbound_scheduled.name",
+                                "subject" : "outbound_vxml_scheduled",
+                                "eventParameters" : [
+                                  {
+                                    "eventKey" : "config",
+                                    "displayName" : "vxml.task.trigger.config"
+                                  },
+                                  {
+                                    "eventKey" : "recipients",
+                                    "displayName" : "vxml.task.trigger.recipients"
+                                  },
+                                  {
+                                    "eventKey" : "message",
+                                    "displayName" : "vxml.task.trigger.message"
+                                  },
+                                  {
+                                    "eventKey" : "motech_id",
+                                    "displayName" : "vxml.task.trigger.motech_id"
+                                  },
+                                  {
+                                    "eventKey" : "timestamp",
+                                    "type" : "DATE",
+                                    "displayName" : "vxml.task.trigger.timestamp"
+                                  }
+                                ]
+                              },
+                              {
+                                "displayName" : "vxml.task.trigger.outbound_pending.name",
+                                "subject" : "outbound_vxml_pending",
+                                "eventParameters" : [
+                                  {
+                                    "eventKey" : "config",
+                                    "displayName" : "vxml.task.trigger.config"
+                                  },
+                                  {
+                                    "eventKey" : "recipients",
+                                    "displayName" : "vxml.task.trigger.recipients"
+                                  },
+                                  {
+                                    "eventKey" : "message",
+                                    "displayName" : "vxml.task.trigger.message"
+                                  },
+                                  {
+                                    "eventKey" : "motech_id",
+                                    "displayName" : "vxml.task.trigger.motech_id"
+                                  },
+                                  {
+                                    "eventKey" : "timestamp",
+                                    "type" : "DATE",
+                                    "displayName" : "vxml.task.trigger.timestamp"
+                                  }
+                                ]
+                              },
+                              {
+                                "displayName" : "vxml.task.trigger.outbound_dispatched.name",
+                                "subject" : "outbound_vxml_dispatched",
+                                "eventParameters" : [
+                                  {
+                                    "eventKey" : "config",
+                                    "displayName" : "vxml.task.trigger.config"
+                                  },
+                                  {
+                                    "eventKey" : "recipients",
+                                    "displayName" : "vxml.task.trigger.recipients"
+                                  },
+                                  {
+                                    "eventKey" : "message",
+                                    "displayName" : "vxml.task.trigger.message"
+                                  },
+                                  {
+                                    "eventKey" : "motech_id",
+                                    "displayName" : "vxml.task.trigger.motech_id"
+                                  },
+                                  {
+                                    "eventKey" : "provider_id",
+                                    "displayName" : "vxml.task.trigger.provider_id"
+                                  },
+                                  {
+                                    "eventKey" : "provider_status",
+                                    "displayName" : "vxml.task.trigger.provider_status"
+                                  },
+                                  {
+                                    "eventKey" : "timestamp",
+                                    "type" : "DATE",
+                                    "displayName" : "vxml.task.trigger.timestamp"
+                                  }
+                                ]
+                              },
+                              {
+                                "displayName" : "vxml.task.trigger.outbound_delivery_confirmed.name",
+                                "subject" : "outbound_vxml_delivery_confirmed",
+                                "eventParameters" : [
+                                  {
+                                    "eventKey" : "config",
+                                    "displayName" : "vxml.task.trigger.config"
+                                  },
+                                  {
+                                    "eventKey" : "recipients",
+                                    "displayName" : "vxml.task.trigger.recipients"
+                                  },
+                                  {
+                                    "eventKey" : "message",
+                                    "displayName" : "vxml.task.trigger.message"
+                                  },
+                                  {
+                                    "eventKey" : "motech_id",
+                                    "displayName" : "vxml.task.trigger.motech_id"
+                                  },
+                                  {
+                                    "eventKey" : "provider_id",
+                                    "displayName" : "vxml.task.trigger.provider_id"
+                                  },
+                                  {
+                                    "eventKey" : "provider_status",
+                                    "displayName" : "vxml.task.trigger.provider_status"
+                                  },
+                                  {
+                                    "eventKey" : "timestamp",
+                                    "type" : "DATE",
+                                    "displayName" : "vxml.task.trigger.timestamp"
+                                  }
+                                ]
+                              },
+                              {
+                                "displayName" : "vxml.task.trigger.outbound_failure_confirmed.name",
+                                "subject" : "outbound_vxml_failure_confirmed",
+                                "eventParameters" : [
+                                  {
+                                    "eventKey" : "config",
+                                    "displayName" : "vxml.task.trigger.config"
+                                  },
+                                  {
+                                    "eventKey" : "recipients",
+                                    "displayName" : "vxml.task.trigger.recipients"
+                                  },
+                                  {
+                                    "eventKey" : "message",
+                                    "displayName" : "vxml.task.trigger.message"
+                                  },
+                                  {
+                                    "eventKey" : "motech_id",
+                                    "displayName" : "vxml.task.trigger.motech_id"
+                                  },
+                                  {
+                                    "eventKey" : "provider_id",
+                                    "displayName" : "vxml.task.trigger.provider_id"
+                                  },
+                                  {
+                                    "eventKey" : "provider_status",
+                                    "displayName" : "vxml.task.trigger.provider_status"
+                                  },
+                                  {
+                                    "eventKey" : "timestamp",
+                                    "type" : "DATE",
+                                    "displayName" : "vxml.task.trigger.timestamp"
+                                  }
+                                ]
+                              },
+                              {
+                                "displayName" : "vxml.task.trigger.inbound.name",
+                                "subject" : "inbound_vxml",
+                                "eventParameters" : [
+                                  {
+                                    "eventKey" : "config",
+                                    "displayName" : "vxml.task.trigger.config"
+                                  },
+                                  {
+                                    "eventKey" : "sender",
+                                    "displayName" : "vxml.task.trigger.sender"
+                                  },
+                                  {
+                                    "eventKey" : "recipient",
+                                    "displayName" : "vxml.task.trigger.recipient"
+                                  },
+                                  {
+                                    "eventKey" : "message",
+                                    "displayName" : "vxml.task.trigger.message"
+                                  },
+                                  {
+                                    "eventKey" : "provider_message_id",
+                                    "displayName" : "vxml.task.trigger.provider_message_id"
+                                  },
+                                  {
+                                    "eventKey" : "timestamp_datetime",
+                                    "type" : "DATE",
+                                    "displayName" : "vxml.task.trigger.timestamp_date"
+                                  },
+                                  {
+                                    "eventKey" : "timestamp_time",
+                                    "type" : "TIME",
+                                    "displayName" : "vxml.task.trigger.timestamp_time"
+                                  }
+                                ]
+                              }
+                            ],
+    "actionTaskEvents": [
+                            {
+                              "displayName" : "vxml.task.action.send",
+                              "subject" : "send_vxml",
+                              "actionParameters" : [
+                                {
+                                  "key" : "recipients",
+                                  "type" : "LIST",
+                                  "displayName" : "vxml.task.action.send.recipients"
+                                },
+                                {
+                                  "key" : "message",
+                                  "displayName" : "vxml.task.action.send.message"
+                                },
+                                {
+                                  "key" : "config",
+                                  "displayName" : "vxml.task.action.send.config",
+                                  "required": false
+                                },
+                                {
+                                  "key" : "delivery_time",
+                                  "type" : "DATE",
+                                  "displayName" : "vxml.task.action.send.delivery_time",
+                                  "required": false
+                                }
+                              ]
+                            }
+                          ]
+}

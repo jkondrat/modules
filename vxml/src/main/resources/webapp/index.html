@@ -1,0 +1,95 @@
+<div id="inner-center" class="vxml inner-center ui-layout-center ui-layout-pane ui-layout-pane-center">
+    <div class="header-footer-breadcrumb">
+        <ul class="breadcrumb" role="navigation">
+            <li><a role="menu" href=".">{{msg('server.home')}}</a></li>
+            <li><a role="menu" href="#/send">{{msg('motech-vxml')}}</a></li>
+            <li ng-show="active('#/vxml/send')" ng-class="active('#/vxml/send')">{{msg('vxml.web.send.title')}}</li>
+            <li ng-show="active('#/vxml/log')" ng-class="active('#/vxml/log')">{{msg('vxml.web.log.title')}}</li>
+            <li ng-show="active('#/vxml/settings')" ng-class="active('#/vxml/settings')">{{msg('vxml.web.settings.title')}}</li>
+        </ul>
+    </div>
+    <div class="header-footer">
+        <ul id="content-tabs" class="nav nav-tabs">
+            <li ng-class="active('#/vxml/send')"><a href="#/vxml/send">{{msg('vxml.web.send.title')}}</a></li>
+            <li ng-class="active('#/vxml/log')"><a href="#/vxml/log">{{msg('vxml.web.log.title')}}</a></li>
+            <li ng-class="active('#/vxml/settings')"><a href="#/vxml/settings">{{msg('vxml.web.settings.title')}}</a></li>
+        </ul>
+    </div>
+    <div class="ui-layout-content">
+        <div class="tab-content" id="tab-content">
+            <div id="main-content" class="active">
+                <div ng-view></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="inner-east" class="vxml inner-east ui-layout-pane ui-layout-pane-east">
+    <div class="header-toolbar header-footer"></div>
+    <!------------------------  Filters  ------------------------>
+    <div class="filter-header">{{msg('vxml.log.filters')}}</div>
+    <div class="ui-layout-content">
+        <div class="inside">
+            <fieldset class="inside"><legend>{{msg('vxml.log.config')}}</legend>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm search-query" placeholder="{{msg('vxml.log.search')}}" data-event-type="keyup" data-search-field="config" vxml-jqgrid-search="vxmlLoggingTable">
+                </div>
+            </fieldset>
+            <fieldset class="inside"><legend>{{msg('vxml.log.phoneNumber')}}</legend>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm search-query" placeholder="{{msg('vxml.log.search')}}" data-event-type="keyup" data-search-field="phoneNumber" vxml-jqgrid-search="vxmlLoggingTable">
+                </div>
+            </fieldset>
+            <fieldset class="inside">
+                <legend>{{msg('vxml.log.message')}}</legend>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm search-query" placeholder="{{msg('vxml.log.search')}}" data-event-type="keyup" data-search-field="messageContent" vxml-jqgrid-search="vxmlLoggingTable">
+                </div>
+            </fieldset>
+            <fieldset class="inside"><legend>{{msg('vxml.log.motechId')}}</legend>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm search-query" placeholder="{{msg('vxml.log.search')}}" data-event-type="keyup" data-search-field="motechId" vxml-jqgrid-search="vxmlLoggingTable">
+                </div>
+            </fieldset>
+            <fieldset class="inside"><legend>{{msg('vxml.log.providerId')}}</legend>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm search-query" placeholder="{{msg('vxml.log.search')}}" data-event-type="keyup" data-search-field="providerId" vxml-jqgrid-search="vxmlLoggingTable">
+                </div>
+            </fieldset>
+            <fieldset class="inside">
+                <legend>{{msg('vxml.log.providerStatus')}}</legend>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm search-query" placeholder="{{msg('vxml.log.search')}}" data-event-type="keyup" data-search-field="providerStatus" vxml-jqgrid-search="vxmlLoggingTable">
+                </div>
+            </fieldset>
+            <fieldset class="inside">
+                <legend>{{msg('vxml.log.timestamp')}}</legend>
+                <div class="form-group">
+                    <input id="dateTimeFrom" vxml-grid-date-picker-from="" type="datetime" class="form-control input-sm search-query" placeholder="{{msg('vxml.log.from')}}" data-event-type="change" data-search-field="timeFrom" vxml-jqgrid-search="vxmlLoggingTable">
+                </div>
+                <div class="form-group">
+                    <input id="dateTimeTo" vxml-grid-date-picker-to="" type="datetime" class="form-control input-sm search-query" placeholder="{{msg('vxml.log.to')}}" data-event-type="change" data-search-field="timeTo" vxml-jqgrid-search="vxmlLoggingTable">
+                </div>
+            </fieldset>
+            <fieldset class="inside"><legend>{{msg('vxml.log.direction')}}</legend>
+                <div data-toggle="buttons-checkbox" class="form-group btn-group-vertical">
+                    <button id="INBOUND" class="btn btn-info btn-sm active" type="button" data-field-type="array" data-search-field="callDirection" data-search-value="INBOUND" vxml-jqgrid-search="vxmlLoggingTable"><i class="icon-white icon-ok"></i> {{msg('vxml.log.direction.inbound')}}</button>
+                    <button id="OUTBOUND" class="btn btn-info btn-sm active" type="button" data-field-type="array" data-search-field="callDirection" data-search-value="OUTBOUND" vxml-jqgrid-search="vxmlLoggingTable"><i class="icon-white icon-ok"></i> {{msg('vxml.log.direction.outbound')}}</button>
+                </div>
+            </fieldset>
+            <fieldset class="inside">
+                <legend>{{msg('vxml.log.callStatus')}}</legend>
+                <div data-toggle="buttons-checkbox" class="form-group btn-group-vertical">
+                    <button id="DISPATCHED" class="btn btn-info btn-sm active" type="button" data-field-type="array" data-search-field="callStatus" data-search-value="DISPATCHED" vxml-jqgrid-search="vxmlLoggingTable"><i class="icon-white icon-ok"></i> {{msg('vxml.log.deliver.status.dispatched')}}</button>
+                    <button id="DELIVERY_CONFIRMED" class="btn btn-info btn-sm active" type="button" data-field-type="array" data-search-field="callStatus" data-search-value="DELIVERY_CONFIRMED" vxml-jqgrid-search="vxmlLoggingTable"><i class="icon-white icon-ok"></i> {{msg('vxml.log.deliver.status.deliveryConfirmed')}}</button>
+                    <button id="FAILURE_CONFIRMED" class="btn btn-info btn-sm active" type="button" data-field-type="array" data-search-field="callStatus" data-search-value="FAILURE_CONFIRMED" vxml-jqgrid-search="vxmlLoggingTable"><i class="icon-white icon-ok"></i> {{msg('vxml.log.deliver.status.failureConfirmed')}}</button>
+                    <button id="RETRYING" class="btn btn-info btn-sm active" type="button" data-field-type="array" data-search-field="callStatus" data-search-value="RETRYING" vxml-jqgrid-search="vxmlLoggingTable"><i class="icon-white icon-ok"></i> {{msg('vxml.log.deliver.status.retrying')}}</button>
+                    <button id="ABORTED" class="btn btn-info btn-sm active" type="button" data-field-type="array" data-search-field="callStatus" data-search-value="ABORTED" vxml-jqgrid-search="vxmlLoggingTable"><i class="icon-white icon-ok"></i> {{msg('vxml.log.deliver.status.aborted')}}</button>
+                    <button id="PENDING" class="btn btn-info btn-sm active" type="button" data-field-type="array" data-search-field="callStatus" data-search-value="PENDING" vxml-jqgrid-search="vxmlLoggingTable"><i class="icon-white icon-ok"></i> {{msg('vxml.log.deliver.status.pending')}}</button>
+                    <button id="RECEIVED" class="btn btn-info btn-sm active" type="button" data-field-type="array" data-search-field="callStatus" data-search-value="RECEIVED" vxml-jqgrid-search="vxmlLoggingTable"><i class="icon-white icon-ok"></i> {{msg('vxml.log.deliver.status.received')}}</button>
+                    <button id="SCHEDULED" class="btn btn-info btn-sm active" type="button" data-field-type="array" data-search-field="callStatus" data-search-value="SCHEDULED" vxml-jqgrid-search="vxmlLoggingTable"><i class="icon-white icon-ok"></i> {{msg('vxml.log.deliver.status.scheduled')}}</button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
