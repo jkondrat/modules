@@ -41,7 +41,7 @@ public class AuditServiceImpl implements AuditService {
     @Override
     public CallRecords findAllVxmlRecords(VxmlRecordSearchCriteria criteria) {
         List<CallRecord> recordList = (List<CallRecord>) executeQuery(criteria, false);
-        return new CallRecords(recordList.size(), recordList);
+        return new CallRecords(recordList);
     }
 
     @Override

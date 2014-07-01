@@ -71,7 +71,7 @@ public class StatusController {
     }
 
     private CallRecord findFirstByProviderMessageId(CallRecords callRecords, String providerMessageId) {
-        for (CallRecord callRecord : callRecords.getRecords()) {
+        for (CallRecord callRecord : callRecords.getRows()) {
             if (callRecord.getProviderId().equals(providerMessageId)) {
                 return callRecord;
             }
@@ -103,17 +103,17 @@ public class StatusController {
                     .withProviderId(providerMessageId)
                     .withQueryParams(queryParams));
             retry++;
-        } while (retry < RECORD_FIND_RETRY_COUNT && CollectionUtils.isEmpty(callRecords.getRecords()));
+        } while (retry < RECORD_FIND_RETRY_COUNT && CollectionUtils.isEmpty(callRecords.getRows()));
 
-        if (CollectionUtils.isEmpty(callRecords.getRecords())) {
+        if (CollectionUtils.isEmpty(callRecords.getRows())) {
             // If we couldn't find a record by provider message ID try using the MOTECH ID
             callRecords = auditService.findAllVxmlRecords(new VxmlRecordSearchCriteria()
                     .withConfig(configName)
                     .withMotechId(providerMessageId)
                     .withQueryParams(queryParams));
-            if (!CollectionUtils.isEmpty(callRecords.getRecords())) {
+            if (!CollectionUtils.isEmpty(callRecords.getRows())) {
                 logger.debug("Found log record with matching motechId {}", providerMessageId);
-                existingCallRecord = callRecords.getRecords().get(0);
+                existingCallRecord = callRecords.getRows().get(0);
             }
         } else {
             //todo: temporary kludge: lucene can't find exact strings, so we're looping on results until we find
