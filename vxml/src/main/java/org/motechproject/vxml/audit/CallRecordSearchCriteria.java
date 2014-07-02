@@ -1,15 +1,10 @@
-package org.motechproject.vxml.web;
+package org.motechproject.vxml.audit;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.motechproject.commons.api.Range;
-import org.motechproject.mds.query.QueryParams;
-import org.motechproject.mds.util.Order;
-import org.motechproject.vxml.audit.CallStatus;
-import org.motechproject.vxml.audit.CallDirection;
-import org.motechproject.vxml.audit.VxmlRecordSearchCriteria;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +12,7 @@ import java.util.Set;
 /**
  * Models the audit log filter settings UI
  */
-public class GridSettings {
+public class CallRecordSearchCriteria {
 
     private Integer rows;
     private Integer page;
@@ -146,46 +141,7 @@ public class GridSettings {
         this.providerId = providerId;
     }
 
-    public VxmlRecordSearchCriteria toVxmlRecordSearchCriteria() {
-        boolean reverse = "desc".equalsIgnoreCase(sortDirection);
-
-        Order order = new Order(sortColumn, (reverse) ? Order.Direction.ASC : Order.Direction.DESC);
-        QueryParams queryParam = new QueryParams(page, rows, order);
-
-        Set<CallDirection> types = getCallDirectionFromSettings();
-        Set<CallStatus> callStatusList = getCallStatusFromSettings();
-        Range<DateTime> range = createRangeFromSettings();
-        VxmlRecordSearchCriteria criteria = new VxmlRecordSearchCriteria();
-        if (!types.isEmpty()) {
-            criteria.withCallDirections(types);
-        }
-        if (!callStatusList.isEmpty()) {
-            criteria.withCallstatuses(callStatusList);
-        }
-        if (StringUtils.isNotBlank(config)) {
-            criteria.withConfig(config);
-        }
-        if (StringUtils.isNotBlank(phoneNumber)) {
-            criteria.withPhoneNumber(phoneNumber);
-        }
-        if (StringUtils.isNotBlank(messageContent)) {
-            criteria.withMessageContent(messageContent);
-        }
-        if (StringUtils.isNotBlank(motechId)) {
-            criteria.withMotechId(motechId);
-        }
-        if (StringUtils.isNotBlank(providerId)) {
-            criteria.withProviderId(providerId);
-        }
-        if (StringUtils.isNotBlank(providerStatus)) {
-            criteria.withProviderStatus(providerStatus);
-        }
-        criteria.withTimestampRange(range);
-        criteria.withQueryParams(queryParam);
-        return criteria;
-    }
-
-    private Set<CallDirection> getCallDirectionFromSettings() {
+    public Set<CallDirection> getCallDirections() {
         Set<CallDirection> callDirections = new HashSet<>();
         String[] callDirectionList = callDirection.split(",");
         for (String type : callDirectionList) {
@@ -196,7 +152,7 @@ public class GridSettings {
         return callDirections;
     }
 
-    private Set<CallStatus> getCallStatusFromSettings() {
+    public Set<CallStatus> getCallStatuses() {
         Set<CallStatus> statusList = new HashSet<>();
         String[] statuses = callStatus.split(",");
         for (String status : statuses) {
@@ -207,7 +163,7 @@ public class GridSettings {
         return statusList;
     }
 
-    private Range<DateTime> createRangeFromSettings() {
+    public Range<DateTime> getTimeRange() {
         DateTime from;
         DateTime to;
         DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");

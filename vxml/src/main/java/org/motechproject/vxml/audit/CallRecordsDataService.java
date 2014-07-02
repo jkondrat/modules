@@ -15,7 +15,7 @@ import static org.motechproject.mds.util.Constants.Operators.MATCHES;
 /**
  * Used to query the audit records in the database
  */
-public interface VxmlRecordsDataService extends MotechDataService<CallRecord> {
+public interface CallRecordsDataService extends MotechDataService<CallRecord> {
 
     @Lookup
     List<CallRecord> findByCriteria(@LookupField(name = "config", customOperator = MATCHES) String config, //NO CHECKSTYLE ParameterNumber
@@ -27,10 +27,9 @@ public interface VxmlRecordsDataService extends MotechDataService<CallRecord> {
                                    @LookupField(name = "providerStatus", customOperator = MATCHES) String providerStatus,
                                    @LookupField(name = "motechId", customOperator = MATCHES) String motechId,
                                    @LookupField(name = "providerId", customOperator = MATCHES) String providerId,
-                                   @LookupField(name = "errorMessage", customOperator = MATCHES) String errorMessage,
                                    QueryParams queryParams);
 
-    long countFindByCriteria(@LookupField(name = "config", customOperator = MATCHES) String config, //NO CHECKSTYLE ParameterNumber
+    long countByCriteria(@LookupField(name = "config", customOperator = MATCHES) String config, //NO CHECKSTYLE ParameterNumber
                              @LookupField(name = "callDirection") Set<CallDirection> directions,
                              @LookupField(name = "phoneNumber", customOperator = MATCHES) String phoneNumber,
                              @LookupField(name = "messageContent", customOperator = MATCHES) String messageContent,
@@ -38,7 +37,6 @@ public interface VxmlRecordsDataService extends MotechDataService<CallRecord> {
                              @LookupField(name = "callStatus") Set<CallStatus> callStatuses,
                              @LookupField(name = "providerStatus", customOperator = "matches()") String providerStatus,
                              @LookupField(name = "motechId", customOperator = MATCHES) String motechId,
-                             @LookupField(name = "providerId", customOperator = MATCHES) String providerId,
-                             @LookupField(name = "errorMessage", customOperator = MATCHES) String errorMessage);
+                             @LookupField(name = "providerId", customOperator = MATCHES) String providerId);
 
 }

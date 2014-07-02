@@ -72,6 +72,6 @@
 
     <osgi:reference id="statusMessageService" interface="org.motechproject.admin.service.StatusMessageService"/>
 
-    <osgi:reference id="vxmlRecordsDataServiceOSGi" interface="org.motechproject.vxml.audit.VxmlRecordsDataService"/>
+    <osgi:reference id="vxmlRecordsDataServiceOSGi" interface="org.motechproject.vxml.audit.CallRecordsDataService"/>
 
 </beans>

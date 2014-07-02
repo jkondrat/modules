@@ -8,9 +8,8 @@ import org.motechproject.vxml.CallEventSubjects;
 import org.motechproject.vxml.alert.MotechStatusMessage;
 import org.motechproject.vxml.audit.AuditService;
 import org.motechproject.vxml.audit.CallRecord;
-import org.motechproject.vxml.audit.CallRecords;
+import org.motechproject.vxml.audit.CallRecordsDataService;
 import org.motechproject.vxml.audit.CallStatus;
-import org.motechproject.vxml.audit.VxmlRecordSearchCriteria;
 import org.motechproject.vxml.configs.Config;
 import org.motechproject.vxml.configs.ConfigReader;
 import org.motechproject.vxml.configs.Configs;
@@ -55,12 +54,14 @@ public class StatusController {
     private Templates templates;
     private EventRelay eventRelay;
     private AuditService auditService;
+    private CallRecordsDataService callRecordsDataService;
     private static final int RECORD_FIND_RETRY_COUNT = 3;
     private static final int RECORD_FIND_TIMEOUT = 500;
 
     @Autowired
     public StatusController(@Qualifier("vxmlSettings") SettingsFacade settingsFacade, EventRelay eventRelay,
-                            TemplateReader templateReader, AuditService auditService) {
+                            TemplateReader templateReader, AuditService auditService,
+                            CallRecordsDataService callRecordsDataService) {
         this.eventRelay = eventRelay;
         configReader = new ConfigReader(settingsFacade);
         //todo: this means we'd crash/error out when a new config is created and we get a status update callback before
@@ -68,21 +69,13 @@ public class StatusController {
         //todo: but ultimately we'll want something like: configs = configReader.getConfigs()
         templates = templateReader.getTemplates();
         this.auditService = auditService;
-    }
-
-    private CallRecord findFirstByProviderMessageId(CallRecords callRecords, String providerMessageId) {
-        for (CallRecord callRecord : callRecords.getRows()) {
-            if (callRecord.getProviderId().equals(providerMessageId)) {
-                return callRecord;
-            }
-        }
-        return null;
+        this.callRecordsDataService = callRecordsDataService;
     }
 
     private CallRecord findOrCreateVxmlRecord(String configName, String providerMessageId, String statusString) {
         int retry = 0;
         CallRecord callRecord;
-        CallRecords callRecords;
+        List<CallRecord> callRecords;
         CallRecord existingCallRecord = null;
         QueryParams queryParams = new QueryParams(new Order("timestamp", Order.Direction.DESC));
 
@@ -98,30 +91,21 @@ public class StatusController {
                     Thread.currentThread().interrupt();
                 }
             }
-            callRecords = auditService.findAllVxmlRecords(new VxmlRecordSearchCriteria()
-                    .withConfig(configName)
-                    .withProviderId(providerMessageId)
-                    .withQueryParams(queryParams));
+            callRecords = callRecordsDataService.findByCriteria(configName, null, null, null, null, null, null, null,
+                    providerMessageId, queryParams);
             retry++;
-        } while (retry < RECORD_FIND_RETRY_COUNT && CollectionUtils.isEmpty(callRecords.getRows()));
+        } while (retry < RECORD_FIND_RETRY_COUNT && CollectionUtils.isEmpty(callRecords));
 
-        if (CollectionUtils.isEmpty(callRecords.getRows())) {
+        if (CollectionUtils.isEmpty(callRecords)) {
             // If we couldn't find a record by provider message ID try using the MOTECH ID
-            callRecords = auditService.findAllVxmlRecords(new VxmlRecordSearchCriteria()
-                    .withConfig(configName)
-                    .withMotechId(providerMessageId)
-                    .withQueryParams(queryParams));
-            if (!CollectionUtils.isEmpty(callRecords.getRows())) {
+            callRecords = callRecordsDataService.findByCriteria(configName, null, null, null, null, null, null,
+                    providerMessageId, null, queryParams);
+            if (!CollectionUtils.isEmpty(callRecords)) {
                 logger.debug("Found log record with matching motechId {}", providerMessageId);
-                existingCallRecord = callRecords.getRows().get(0);
+                existingCallRecord = callRecords.get(0);
             }
         } else {
-            //todo: temporary kludge: lucene can't find exact strings, so we're looping on results until we find
-            //todo: an exact match. Remove when we switch to SEUSS.
-            existingCallRecord = findFirstByProviderMessageId(callRecords, providerMessageId);
-            if (existingCallRecord != null) {
-                logger.debug("Found log record with matching providerId {}", providerMessageId);
-            }
+            existingCallRecord = callRecords.get(0);
         }
 
         if (existingCallRecord == null) {

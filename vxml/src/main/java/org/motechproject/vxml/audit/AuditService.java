@@ -11,7 +11,7 @@ public interface AuditService {
 
     List<CallRecord> findAllVxmlRecords();
 
-    CallRecords findAllVxmlRecords(VxmlRecordSearchCriteria criteria);
+    CallRecords findAllVxmlRecords(CallRecordSearchCriteria callRecordSearchCriteria);
 
-    long countAllVxmlRecords(VxmlRecordSearchCriteria criteria);
+    long countAllVxmlRecords(CallRecordSearchCriteria callRecordSearchCriteria);
 }

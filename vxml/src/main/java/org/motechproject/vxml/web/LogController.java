@@ -1,8 +1,8 @@
 package org.motechproject.vxml.web;
 
-import org.motechproject.vxml.audit.CallRecords;
-import org.motechproject.vxml.audit.VxmlRecordSearchCriteria;
 import org.motechproject.vxml.audit.AuditService;
+import org.motechproject.vxml.audit.CallRecordSearchCriteria;
+import org.motechproject.vxml.audit.CallRecords;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +21,13 @@ public class LogController {
 
     @RequestMapping(value = "/log", method = RequestMethod.GET)
     @ResponseBody
-    public CallRecords getVxmlRecords(GridSettings settings) {
+    public CallRecords getVxmlRecords(CallRecordSearchCriteria callRecordSearchCriteria) {
         CallRecords callRecords = new CallRecords();
-        VxmlRecordSearchCriteria criteria = settings.toVxmlRecordSearchCriteria();
 
-        if (!criteria.getCallDirections().isEmpty() && !criteria.getCallStatuses().isEmpty()) {
-            callRecords = auditService.findAllVxmlRecords(criteria);
+        if (!callRecordSearchCriteria.getCallDirections().isEmpty() && !callRecordSearchCriteria.getCallStatuses().isEmpty()) {
+            callRecords = auditService.findAllVxmlRecords(callRecordSearchCriteria);
         }
+
         return callRecords;
     }
 }

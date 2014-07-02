@@ -7,8 +7,8 @@ import org.motechproject.testing.osgi.BasePaxIT;
 import org.motechproject.testing.osgi.container.MotechNativeTestContainerFactory;
 import org.motechproject.vxml.audit.CallDirection;
 import org.motechproject.vxml.audit.CallRecord;
+import org.motechproject.vxml.audit.CallRecordsDataService;
 import org.motechproject.vxml.audit.CallStatus;
-import org.motechproject.vxml.audit.VxmlRecordsDataService;
 import org.ops4j.pax.exam.ExamFactory;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
@@ -33,7 +33,7 @@ public class AuditIT extends BasePaxIT {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Inject
-    private VxmlRecordsDataService dataService;
+    private CallRecordsDataService dataService;
 
     @Test
     public void verifyAuditIsFunctional() throws Exception {
@@ -46,7 +46,7 @@ public class AuditIT extends BasePaxIT {
         dataService.create(new CallRecord("config", CallDirection.INBOUND, "456", "message2", DateTime.now(),
                 CallStatus.RECEIVED, "provider_status_foo", "motech_id_2", "provider_id_b", ""));
 
-        List<CallRecord> callRecords = dataService.findByCriteria(null,null,"123",null,null,null,null,null,null,null,
+        List<CallRecord> callRecords = dataService.findByCriteria(null, null, "123", null, null, null, null, null, null,
                 null);
 
         assertEquals(callRecords.size(), 1);
