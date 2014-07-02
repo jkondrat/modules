@@ -1,4 +1,4 @@
-package org.motechproject.vxml.audit;
+package org.motechproject.vxml.log;
 
 import org.joda.time.DateTime;
 import org.motechproject.commons.api.Range;
@@ -13,7 +13,7 @@ import java.util.Set;
 import static org.motechproject.mds.util.Constants.Operators.MATCHES;
 
 /**
- * Used to query the audit records in the database
+ * Used to query the log records in the database
  */
 public interface CallRecordsDataService extends MotechDataService<CallRecord> {
 

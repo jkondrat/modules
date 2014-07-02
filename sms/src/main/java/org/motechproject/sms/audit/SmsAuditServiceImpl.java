@@ -15,7 +15,7 @@ import java.util.Set;
 import static org.motechproject.commons.api.MotechEnumUtils.toEnumSet;
 
 /**
- * Reading and writing to the SMS audit log
+ * Reading and writing to the SMS log log
  */
 @Service
 public class SmsAuditServiceImpl implements SmsAuditService {

@@ -1,4 +1,4 @@
-package org.motechproject.vxml.audit;
+package org.motechproject.vxml.log;
 
 //todo: motechTimestanp & providerTimestamp instead of just timestamp?
 //todo: 'senderNumber' & 'recipientNumber' instead of 'phoneNumber'?
@@ -11,7 +11,7 @@ import org.motechproject.commons.date.util.DateUtil;
 import org.motechproject.mds.annotations.Entity;
 
 /**
- * VXML audit record for the database
+ * VXML log record for the database
  */
 @Entity
 public class CallRecord {

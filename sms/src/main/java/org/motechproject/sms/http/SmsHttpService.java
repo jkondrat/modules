@@ -288,7 +288,7 @@ public class SmsHttpService {
         }
 
         //
-        // ...and audit all the records that need auditing
+        // ...and log all the records that need auditing
         //
         for (SmsRecord smsRecord : auditRecords) {
             smsAuditService.log(smsRecord);

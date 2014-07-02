@@ -3,7 +3,7 @@ package org.motechproject.vxml.configs;
 import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.vxml.CallEventSubjects;
-import org.motechproject.vxml.audit.CallStatus;
+import org.motechproject.vxml.log.CallStatus;
 
 import static org.junit.Assert.assertEquals;
 

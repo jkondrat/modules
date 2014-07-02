@@ -4,9 +4,9 @@ import org.joda.time.DateTime;
 import org.motechproject.event.listener.EventRelay;
 import org.motechproject.server.config.SettingsFacade;
 import org.motechproject.vxml.alert.MotechStatusMessage;
-import org.motechproject.vxml.audit.CallRecord;
-import org.motechproject.vxml.audit.CallStatus;
-import org.motechproject.vxml.audit.AuditService;
+import org.motechproject.vxml.log.CallRecord;
+import org.motechproject.vxml.log.CallStatus;
+import org.motechproject.vxml.log.LogService;
 import org.motechproject.vxml.configs.Config;
 import org.motechproject.vxml.configs.ConfigReader;
 import org.motechproject.vxml.configs.Configs;
@@ -28,7 +28,7 @@ import java.util.Map;
 
 import static org.motechproject.commons.date.util.DateUtil.now;
 import static org.motechproject.vxml.VxmlEvents.inboundEvent;
-import static org.motechproject.vxml.audit.CallDirection.INBOUND;
+import static org.motechproject.vxml.log.CallDirection.INBOUND;
 
 /**
  * Handles http requests to {motechserver}/motech-platform-server/module/vxml/incoming{Config} sent by vxml providers
@@ -45,18 +45,18 @@ public class IncomingController {
     private Configs configs;
     private Templates templates;
     private EventRelay eventRelay;
-    private AuditService auditService;
+    private LogService logService;
 
     @Autowired
     public IncomingController(@Qualifier("vxmlSettings") SettingsFacade settingsFacade, EventRelay eventRelay,
-                              TemplateReader templateReader, AuditService auditService) {
+                              TemplateReader templateReader, LogService logService) {
         this.eventRelay = eventRelay;
         configReader = new ConfigReader(settingsFacade);
         //todo: this means we'll crash/error out when a new config is created and we get an incoming call before
         //todo: restarting the module but going to the new config system (with change notification) will fix that
         configs = configReader.getConfigs();
         templates = templateReader.getTemplates();
-        this.auditService = auditService;
+        this.logService = logService;
     }
 
 
@@ -120,7 +120,7 @@ public class IncomingController {
 
         eventRelay.sendEventMessage(inboundEvent(config.getName(), sender, recipient, message, providerMessageId,
                 timestamp));
-        auditService.log(new CallRecord(config.getName(), INBOUND, sender, message, now(), CallStatus.RECEIVED,
+        logService.log(new CallRecord(config.getName(), INBOUND, sender, message, now(), CallStatus.RECEIVED,
                 null, null, providerMessageId, null));
     }
 }

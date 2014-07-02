@@ -1,4 +1,4 @@
-package org.motechproject.vxml.audit;
+package org.motechproject.vxml.log;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
@@ -14,15 +14,15 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Reading and writing to the VXML audit log
+ * Reading and writing to the VXML log log
  */
 @Service
-public class AuditServiceImpl implements AuditService {
+public class LogServiceImpl implements LogService {
     private CallRecordsDataService callRecordsDataService;
-    private Logger logger = LoggerFactory.getLogger(AuditServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger(LogServiceImpl.class);
 
     @Autowired
-    public AuditServiceImpl(CallRecordsDataService callRecordsDataService) {
+    public LogServiceImpl(CallRecordsDataService callRecordsDataService) {
         this.callRecordsDataService = callRecordsDataService;
     }
 
@@ -33,18 +33,18 @@ public class AuditServiceImpl implements AuditService {
     }
 
     @Override
-    public List<CallRecord> findAllVxmlRecords() {
+    public List<CallRecord> findAllCallRecords() {
         return callRecordsDataService.retrieveAll();
     }
 
     @Override
-    public CallRecords findAllVxmlRecords(CallRecordSearchCriteria callRecordSearchCriteria) {
+    public CallRecords findAllCallRecords(CallRecordSearchCriteria callRecordSearchCriteria) {
         List<CallRecord> recordList = (List<CallRecord>) executeQuery(callRecordSearchCriteria, false);
         return new CallRecords(recordList);
     }
 
     @Override
-    public long countAllVxmlRecords(CallRecordSearchCriteria callRecordSearchCriteria) {
+    public long countAllCallRecords(CallRecordSearchCriteria callRecordSearchCriteria) {
         return (long) executeQuery(callRecordSearchCriteria, true);
     }
 

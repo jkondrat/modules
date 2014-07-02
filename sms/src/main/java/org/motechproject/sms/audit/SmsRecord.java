@@ -11,7 +11,7 @@ import org.motechproject.commons.date.util.DateUtil;
 import org.motechproject.mds.annotations.Entity;
 
 /**
- * SMS audit record for the database
+ * SMS log record for the database
  */
 @Entity
 public class SmsRecord {

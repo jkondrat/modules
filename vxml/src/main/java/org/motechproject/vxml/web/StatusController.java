@@ -6,10 +6,10 @@ import org.motechproject.mds.util.Order;
 import org.motechproject.server.config.SettingsFacade;
 import org.motechproject.vxml.CallEventSubjects;
 import org.motechproject.vxml.alert.MotechStatusMessage;
-import org.motechproject.vxml.audit.AuditService;
-import org.motechproject.vxml.audit.CallRecord;
-import org.motechproject.vxml.audit.CallRecordsDataService;
-import org.motechproject.vxml.audit.CallStatus;
+import org.motechproject.vxml.log.LogService;
+import org.motechproject.vxml.log.CallRecord;
+import org.motechproject.vxml.log.CallRecordsDataService;
+import org.motechproject.vxml.log.CallStatus;
 import org.motechproject.vxml.configs.Config;
 import org.motechproject.vxml.configs.ConfigReader;
 import org.motechproject.vxml.configs.Configs;
@@ -36,7 +36,7 @@ import java.util.Map;
 
 import static org.motechproject.commons.date.util.DateUtil.now;
 import static org.motechproject.vxml.VxmlEvents.outboundEvent;
-import static org.motechproject.vxml.audit.CallDirection.OUTBOUND;
+import static org.motechproject.vxml.log.CallDirection.OUTBOUND;
 
 /**
  * Handles message delivery status updates sent by vxml providers to
@@ -53,14 +53,14 @@ public class StatusController {
     private Configs configs;
     private Templates templates;
     private EventRelay eventRelay;
-    private AuditService auditService;
+    private LogService logService;
     private CallRecordsDataService callRecordsDataService;
     private static final int RECORD_FIND_RETRY_COUNT = 3;
     private static final int RECORD_FIND_TIMEOUT = 500;
 
     @Autowired
     public StatusController(@Qualifier("vxmlSettings") SettingsFacade settingsFacade, EventRelay eventRelay,
-                            TemplateReader templateReader, AuditService auditService,
+                            TemplateReader templateReader, LogService logService,
                             CallRecordsDataService callRecordsDataService) {
         this.eventRelay = eventRelay;
         configReader = new ConfigReader(settingsFacade);
@@ -68,11 +68,11 @@ public class StatusController {
         //todo: restarting the module  -  so for now we'll read configs each time handle() gets called
         //todo: but ultimately we'll want something like: configs = configReader.getConfigs()
         templates = templateReader.getTemplates();
-        this.auditService = auditService;
+        this.logService = logService;
         this.callRecordsDataService = callRecordsDataService;
     }
 
-    private CallRecord findOrCreateVxmlRecord(String configName, String providerMessageId, String statusString) {
+    private CallRecord findOrCreateCallRecord(String configName, String providerMessageId, String statusString) {
         int retry = 0;
         CallRecord callRecord;
         List<CallRecord> callRecords;
@@ -131,7 +131,7 @@ public class StatusController {
     private void analyzeStatus(Status status, String configName, Map<String, String> params) {
         String statusString = params.get(status.getStatusKey());
         String providerMessageId = params.get(status.getMessageIdKey());
-        CallRecord callRecord = findOrCreateVxmlRecord(configName, providerMessageId, statusString);
+        CallRecord callRecord = findOrCreateCallRecord(configName, providerMessageId, statusString);
         List<String> recipients = Arrays.asList(callRecord.getPhoneNumber());
 
         if (statusString != null) {
@@ -160,7 +160,7 @@ public class StatusController {
                     callRecord.getMessageContent(), callRecord.getMotechId(), providerMessageId, null, null,
                     now()));
         }
-        auditService.log(callRecord);
+        logService.log(callRecord);
     }
 
     @ResponseStatus(HttpStatus.OK)

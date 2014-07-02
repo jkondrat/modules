@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Models the audit log filter settings UI
+ * Models the log log filter settings UI
  */
 public class GridSettings {
 

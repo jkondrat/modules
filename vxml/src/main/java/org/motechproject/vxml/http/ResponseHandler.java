@@ -3,7 +3,7 @@ package org.motechproject.vxml.http;
 import org.apache.commons.httpclient.Header;
 import org.motechproject.event.MotechEvent;
 import org.motechproject.vxml.alert.MotechStatusMessage;
-import org.motechproject.vxml.audit.CallRecord;
+import org.motechproject.vxml.log.CallRecord;
 import org.motechproject.vxml.configs.Config;
 import org.motechproject.vxml.service.OutgoingVxml;
 import org.motechproject.vxml.templates.Response;

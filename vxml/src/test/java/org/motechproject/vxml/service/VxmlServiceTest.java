@@ -6,7 +6,7 @@ import org.mockito.Mock;
 import org.motechproject.event.listener.EventRelay;
 import org.motechproject.scheduler.service.MotechSchedulerService;
 import org.motechproject.server.config.SettingsFacade;
-import org.motechproject.vxml.audit.AuditService;
+import org.motechproject.vxml.log.LogService;
 import org.motechproject.vxml.templates.TemplateReader;
 
 import java.util.Arrays;
@@ -21,7 +21,7 @@ public class VxmlServiceTest {
     @Mock
     TemplateReader templateReader;
     @Mock
-    AuditService auditService;
+    LogService logService;
 
     private VxmlService vxmlSender;
 

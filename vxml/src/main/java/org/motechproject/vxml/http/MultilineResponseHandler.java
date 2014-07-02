@@ -3,8 +3,8 @@ package org.motechproject.vxml.http;
 import org.apache.commons.httpclient.Header;
 import org.motechproject.vxml.CallEventSubjects;
 import org.motechproject.vxml.alert.MotechStatusMessage;
-import org.motechproject.vxml.audit.CallRecord;
-import org.motechproject.vxml.audit.CallStatus;
+import org.motechproject.vxml.log.CallRecord;
+import org.motechproject.vxml.log.CallStatus;
 import org.motechproject.vxml.configs.Config;
 import org.motechproject.vxml.service.OutgoingVxml;
 import org.motechproject.vxml.templates.Template;
@@ -14,7 +14,7 @@ import java.util.List;
 
 import static org.motechproject.commons.date.util.DateUtil.now;
 import static org.motechproject.vxml.VxmlEvents.outboundEvent;
-import static org.motechproject.vxml.audit.CallDirection.OUTBOUND;
+import static org.motechproject.vxml.log.CallDirection.OUTBOUND;
 
 /**
  * Deals with multi-line responses, like the ones sent by Clickatell

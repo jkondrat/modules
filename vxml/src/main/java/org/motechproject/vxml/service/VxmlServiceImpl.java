@@ -8,9 +8,9 @@ import org.motechproject.scheduler.contract.RunOnceSchedulableJob;
 import org.motechproject.server.config.SettingsFacade;
 import org.motechproject.vxml.CallEventSubjects;
 import org.motechproject.vxml.VxmlEventParams;
-import org.motechproject.vxml.audit.CallRecord;
-import org.motechproject.vxml.audit.CallStatus;
-import org.motechproject.vxml.audit.AuditService;
+import org.motechproject.vxml.log.CallRecord;
+import org.motechproject.vxml.log.CallStatus;
+import org.motechproject.vxml.log.LogService;
 import org.motechproject.vxml.configs.Config;
 import org.motechproject.vxml.configs.ConfigReader;
 import org.motechproject.vxml.configs.Configs;
@@ -29,7 +29,7 @@ import java.util.UUID;
 
 import static org.motechproject.commons.date.util.DateUtil.now;
 import static org.motechproject.vxml.VxmlEvents.outboundEvent;
-import static org.motechproject.vxml.audit.CallDirection.OUTBOUND;
+import static org.motechproject.vxml.log.CallDirection.OUTBOUND;
 
 //todo: final pass over how we use motechId system-wide
 
@@ -44,12 +44,12 @@ public class VxmlServiceImpl implements VxmlService {
     private EventRelay eventRelay;
     private MotechSchedulerService schedulerService;
     private Templates templates;
-    private AuditService auditService;
+    private LogService logService;
 
     @Autowired
     public VxmlServiceImpl(@Qualifier("vxmlSettings") SettingsFacade settingsFacade, EventRelay eventRelay,
                           MotechSchedulerService schedulerService, TemplateReader templateReader,
-                          AuditService auditService) {
+                          LogService logService) {
         //todo: persist configs or reload them for each call?
         //todo: right now I'm doing the latter...
         //todo: ... but I'm not wed to it.
@@ -57,7 +57,7 @@ public class VxmlServiceImpl implements VxmlService {
         this.eventRelay = eventRelay;
         this.schedulerService = schedulerService;
         templates = templateReader.getTemplates();
-        this.auditService = auditService;
+        this.logService = logService;
     }
 
     private static List<String> splitMessage(String message, int maxSize, String header, String footer,
@@ -174,7 +174,7 @@ public class VxmlServiceImpl implements VxmlService {
                     //without that it seems Quartz doesn't fire events in the order they were scheduled
                     dt = dt.plus(1);
                     for (String recipient : recipients) {
-                        auditService.log(new CallRecord(config.getName(), OUTBOUND, recipient, part, now(),
+                        logService.log(new CallRecord(config.getName(), OUTBOUND, recipient, part, now(),
                                 CallStatus.SCHEDULED, null, motechId, null, null));
                     }
                 }
@@ -185,7 +185,7 @@ public class VxmlServiceImpl implements VxmlService {
                             part, motechId, null, null, null, null));
                     logger.info("Sending message [{}] to [{}].", part.replace("\n", "\\n"), recipients);
                     for (String recipient : recipients) {
-                        auditService.log(new CallRecord(config.getName(), OUTBOUND, recipient, part, now(),
+                        logService.log(new CallRecord(config.getName(), OUTBOUND, recipient, part, now(),
                                 CallStatus.PENDING, null, motechId, null, null));
                     }
                 }

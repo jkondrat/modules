@@ -14,8 +14,8 @@ import org.motechproject.event.MotechEvent;
 import org.motechproject.event.listener.EventRelay;
 import org.motechproject.server.config.SettingsFacade;
 import org.motechproject.vxml.alert.MotechStatusMessage;
-import org.motechproject.vxml.audit.AuditService;
-import org.motechproject.vxml.audit.CallRecord;
+import org.motechproject.vxml.log.LogService;
+import org.motechproject.vxml.log.CallRecord;
 import org.motechproject.vxml.configs.Config;
 import org.motechproject.vxml.configs.ConfigProp;
 import org.motechproject.vxml.configs.ConfigReader;
@@ -41,7 +41,7 @@ import java.util.Map;
 
 import static org.motechproject.commons.date.util.DateUtil.now;
 import static org.motechproject.vxml.VxmlEvents.outboundEvent;
-import static org.motechproject.vxml.audit.CallDirection.OUTBOUND;
+import static org.motechproject.vxml.log.CallDirection.OUTBOUND;
 
 /**
  * This is the main meat - here we talk to the providers using HTTP
@@ -58,7 +58,7 @@ public class HttpHelper {
     @Autowired
     private HttpClient commonsHttpClient;
     @Autowired
-    private AuditService auditService;
+    private LogService logService;
     @Autowired
     private ConfigurationService configurationService;
     @Autowired
@@ -288,10 +288,10 @@ public class HttpHelper {
         }
 
         //
-        // ...and audit all the records that need auditing
+        // ...and log all the records that need auditing
         //
         for (CallRecord callRecord : auditRecords) {
-            auditService.log(callRecord);
+            logService.log(callRecord);
         }
     }
 }

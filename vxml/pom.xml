@@ -172,7 +172,7 @@
                         <Blueprint-Enabled>true</Blueprint-Enabled>
                         <Export-Package>
                             org.motechproject.vxml.service;version=${project.version},
-                            org.motechproject.vxml.audit;version=${project.version}
+                            org.motechproject.vxml.log;version=${project.version}
                         </Export-Package>
                         <Import-Package>
                             org.apache.velocity.exception,

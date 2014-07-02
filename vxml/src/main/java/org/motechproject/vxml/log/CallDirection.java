@@ -1,4 +1,4 @@
-package org.motechproject.vxml.audit;
+package org.motechproject.vxml.log;
 
 /**
  * Incoming (MO: Mobile Originated) or outgoing (MT: Mobile Terminated) VXML

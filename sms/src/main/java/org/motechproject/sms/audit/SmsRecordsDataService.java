@@ -13,7 +13,7 @@ import java.util.Set;
 import static org.motechproject.mds.util.Constants.Operators.MATCHES;
 
 /**
- * Used to query the audit records in the database
+ * Used to query the log records in the database
  */
 public interface SmsRecordsDataService extends MotechDataService<SmsRecord> {
 

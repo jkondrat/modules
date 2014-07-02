@@ -1,11 +1,11 @@
-package org.motechproject.vxml.audit;
+package org.motechproject.vxml.log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * VXML audit records from the database
+ * VXML log records from the database
  */
 public class CallRecords implements Serializable {
 

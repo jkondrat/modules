@@ -1,4 +1,4 @@
-package org.motechproject.vxml.audit;
+package org.motechproject.vxml.log;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Models the audit log filter settings UI
+ * Models the call log filter settings UI
  */
 public class CallRecordSearchCriteria {
 

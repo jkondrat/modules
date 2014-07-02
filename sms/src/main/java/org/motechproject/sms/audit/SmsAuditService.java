@@ -3,7 +3,7 @@ package org.motechproject.sms.audit;
 import java.util.List;
 
 /**
- * Reading and writing to the SMS audit log
+ * Reading and writing to the SMS log log
  */
 public interface SmsAuditService {
 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * SMS audit records from the database
+ * SMS log records from the database
  */
 public class SmsRecords implements Serializable {
 

@@ -1,7 +1,7 @@
 package org.motechproject.vxml.configs;
 
 import org.motechproject.vxml.CallEventSubjects;
-import org.motechproject.vxml.audit.CallStatus;
+import org.motechproject.vxml.log.CallStatus;
 
 import java.util.ArrayList;
 import java.util.List;
