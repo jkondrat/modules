@@ -25,6 +25,6 @@ public class CallRecords implements Serializable {
     }
 
     public Long getRecords() {
-        return (long)records.size();
+        return (long) records.size();
     }
 }

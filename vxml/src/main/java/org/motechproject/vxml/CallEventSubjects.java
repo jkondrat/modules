@@ -14,6 +14,6 @@ public final class CallEventSubjects {
     public static final String DISPATCHED = "outbound_vxml_dispatched";
     public static final String DELIVERY_CONFIRMED = "outbound_vxml_delivery_confirmed";
     public static final String FAILURE_CONFIRMED = "outbound_vxml_failure_confirmed";
-    public static final String SEND_VXML = "send_vxml";
+    public static final String INITIATE_VXML_CALL = "initiate_vxml_call";
     public static final String INBOUND_VXML = "inbound_vxml";
 }

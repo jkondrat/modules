@@ -9,7 +9,7 @@ import static org.apache.commons.lang.StringUtils.isBlank;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 //
-//todo: expose list of configs as task action parameter values to send_vxml?
+//todo: expose list of configs as task action parameter values to initiate_vxml_call?
 //
 
 /**

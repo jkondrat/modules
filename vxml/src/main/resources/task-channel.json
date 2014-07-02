@@ -260,7 +260,7 @@
     "actionTaskEvents": [
                             {
                               "displayName" : "vxml.task.action.send",
-                              "subject" : "send_vxml",
+                              "subject" : "initiate_vxml_call",
                               "actionParameters" : [
                                 {
                                   "key" : "recipients",

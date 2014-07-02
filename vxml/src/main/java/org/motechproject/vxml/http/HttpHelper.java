@@ -47,9 +47,9 @@ import static org.motechproject.vxml.audit.CallDirection.OUTBOUND;
  * This is the main meat - here we talk to the providers using HTTP
  */
 @Service
-public class VxmlHttpService {
+public class HttpHelper {
 
-    private Logger logger = LoggerFactory.getLogger(VxmlHttpService.class);
+    private Logger logger = LoggerFactory.getLogger(HttpHelper.class);
     private ConfigReader configReader;
     private Configs configs;
     private Templates templates;
@@ -65,7 +65,7 @@ public class VxmlHttpService {
     private MotechStatusMessage motechStatusMessage;
 
     @Autowired
-    public VxmlHttpService(@Qualifier("vxmlSettings") SettingsFacade settingsFacade, TemplateReader templateReader) {
+    public HttpHelper(@Qualifier("vxmlSettings") SettingsFacade settingsFacade, TemplateReader templateReader) {
 
         //todo: unified module-wide caching & refreshing strategy
         configReader = new ConfigReader(settingsFacade);
