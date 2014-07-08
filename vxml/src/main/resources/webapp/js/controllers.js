@@ -55,7 +55,7 @@
                 then = null;
             }
             $scope.vxml.deliveryTime = then;
-            $http.post('../vxml/send', $scope.vxml)
+            $http.post('../vxml/outgoing', $scope.vxml)
                 .success(function(response) {
                     var index = $scope.messages.push(response);
                     hideMsgLater(index-1);

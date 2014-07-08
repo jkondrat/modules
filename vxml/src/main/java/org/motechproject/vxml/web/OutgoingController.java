@@ -15,23 +15,24 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.io.IOException;
 
 /**
- * handles requests to {server}/motech-platform-server/module/vxml/send: how the Send VXML dialog sends a message
+ * handles requests to {server}/motech-platform-server/module/vxml/outgoing
+ * This is how the "Start outgoing call" dialog sends a message
  */
 @Controller
-public class SendController {
+public class OutgoingController {
     private VxmlService vxmlService;
 
     @Autowired
-    public SendController(VxmlService vxmlService) {
+    public OutgoingController(VxmlService vxmlService) {
         this.vxmlService = vxmlService;
     }
 
-    @RequestMapping(value = "/send", method = RequestMethod.POST)
+    @RequestMapping(value = "/outgoing", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public String sendVxml(@RequestBody OutgoingVxml outgoingVxml) {
         vxmlService.send(outgoingVxml);
-        return String.format("VXML to %s using the %s config was added to the message queue.",
+        return String.format("Outgoing VXML call to %s using the %s config was added to the message queue.",
                 outgoingVxml.getRecipients().toString(), outgoingVxml.getConfig());
     }
 
