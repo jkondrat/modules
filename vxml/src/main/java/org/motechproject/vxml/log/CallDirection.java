@@ -1,7 +1,7 @@
 package org.motechproject.vxml.log;
 
 /**
- * Incoming (MO: Mobile Originated) or outgoing (MT: Mobile Terminated) VXML
+ * Inbound (MO: Mobile Originated) or outbound (MT: Mobile Terminated)
  */
 public enum CallDirection {
     INBOUND, OUTBOUND

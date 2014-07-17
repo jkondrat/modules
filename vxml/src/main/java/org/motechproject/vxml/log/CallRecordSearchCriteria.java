@@ -182,7 +182,7 @@ public class CallRecordSearchCriteria {
 
     @Override
     public String toString() {
-        return "GridSettings{" +
+        return "CallRecordSearchCriteria{" +
                 "rows=" + rows +
                 ", page=" + page +
                 ", sortColumn='" + sortColumn + '\'' +

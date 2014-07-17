@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * figures out success or failure from an vxml provider response
+ * figures out success or failure from the provider response
  */
 public abstract class ResponseHandler {
     private Template template;
