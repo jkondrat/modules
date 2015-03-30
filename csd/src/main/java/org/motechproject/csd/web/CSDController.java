@@ -1,7 +1,13 @@
 package org.motechproject.csd.web;
 
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.motechproject.csd.client.CSDHttpClient;
+import org.motechproject.csd.client.SOAPClient;
+import org.motechproject.csd.domain.CSD;
+import org.motechproject.csd.domain.CommunicationProtocol;
+import org.motechproject.csd.domain.Config;
 import org.motechproject.csd.service.CSDService;
 import org.motechproject.csd.service.ConfigService;
 import org.slf4j.Logger;
@@ -19,6 +25,7 @@ import org.xml.sax.SAXParseException;
 
 import javax.xml.bind.UnmarshalException;
 import java.io.IOException;
+import java.util.Date;
 
 @Controller
 public class CSDController {
@@ -29,31 +36,49 @@ public class CSDController {
 
     private CSDHttpClient csdHttpClient;
 
+    private SOAPClient soapClient;
+
     private CSDService csdService;
 
     @Autowired
-    public CSDController(@Qualifier("configService") ConfigService configService, CSDHttpClient csdHttpClient, CSDService csdService) {
+    public CSDController(@Qualifier("configService") ConfigService configService, CSDHttpClient csdHttpClient,
+                         SOAPClient soapClient, CSDService csdService) {
         this.configService = configService;
         this.csdHttpClient = csdHttpClient;
+        this.soapClient = soapClient;
         this.csdService = csdService;
     }
 
     @RequestMapping(value = "/csd-consume", method = RequestMethod.GET)
     @ResponseBody
     public void consume() {
-        String xmlUrl = configService.getConfig().getXmlUrl();
+        Config config = configService.getConfig();
+        String xmlUrl = config.getXmlUrl();
+        CommunicationProtocol communicationProtocol = config.getCommunicationProtocol();
 
         if (xmlUrl == null) {
             throw new IllegalArgumentException("The CSD Registry URL is empty");
         }
 
-        String xml = csdHttpClient.getXml(xmlUrl);
-
-        if (xml == null) {
-            throw new IllegalArgumentException("Couldn't load XML");
+        if (communicationProtocol.equals(CommunicationProtocol.REST)) {
+            String xml = csdHttpClient.getXml(xmlUrl);
+            if (xml == null) {
+                throw new IllegalArgumentException("Couldn't load XML");
+            }
+            csdService.saveFromXml(xml);
+        } else {
+            DateTime lastModified;
+            if (StringUtils.isNotEmpty(config.getLastModified())) {
+                lastModified = DateTime.parse(config.getLastModified(),
+                        DateTimeFormat.forPattern(Config.DATE_TIME_PICKER_FORMAT));
+            } else {
+                lastModified = new DateTime(new Date(0));
+            }
+            CSD csd = soapClient.getModifications(xmlUrl, lastModified).getCSD();
+            csdService.update(csd);
         }
 
-        csdService.saveFromXml(xml);
+        config.setLastModified(DateTime.now().toString(Config.DATE_TIME_PICKER_FORMAT));
     }
 
     @ExceptionHandler(Exception.class)

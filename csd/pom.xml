@@ -130,13 +130,15 @@
                             org.springframework.web.servlet.handler,
                             org.springframework.web.servlet.mvc,
                             org.springframework.web.servlet.mvc.method.annotation,
+                            org.springframework.oxm.jaxb,
                             *
                         </Import-Package>
                         <Export-Package>
                             org.motechproject.csd.service;version=${project.version},
                             org.motechproject.csd.mds;version=${project.version},
                             org.motechproject.csd.domain;version=${project.version},
-                            org.motechproject.csd.web;version=${project.version}
+                            org.motechproject.csd.web;version=${project.version},
+                            javax.xml.bind.attachment,
                         </Export-Package>
                     </instructions>
                 </configuration>
